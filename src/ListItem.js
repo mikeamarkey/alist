@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import './ListItem.css'
 
-export default () => {
-  const [done, setDone] = useState(false)
-  const [body, setBody] = useState('')
+export default ({ listItem }) => {
+  const [done, setDone] = useState(listItem.done)
+  const [body, setBody] = useState(listItem.body)
 
   const updateDone = () => {
     console.log('updating done')
@@ -17,9 +18,9 @@ export default () => {
   }
 
   return (
-    <div className='ListItem'>
+    <div className={`ListItem ${done && 'done'}`}>
       <input
-        className='ListItem-check'
+        className='ListItem-done'
         type='checkbox'
         name='done'
         checked={done}

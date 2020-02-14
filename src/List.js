@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import ListItem from './ListItem'
+import './List.css'
 
 export default () => {
+  const listItems = [
+    { id: 1, done: false, body: 'this is a cool one' },
+    { id: 2, done: true, body: 'this is a done one' },
+    { id: 3, done: false, body: 'hey hey hey buddy' }
+  ]
   const [title, setTitle] = useState('')
 
   const updateTitle = () => {
@@ -23,9 +29,7 @@ export default () => {
       />
 
       <div className='List-wrapper'>
-        <ListItem />
-        <ListItem />
-        <ListItem />
+        {listItems.map((listItem) => <ListItem key={listItem.id} listItem={listItem} />)}
       </div>
     </div>
   )

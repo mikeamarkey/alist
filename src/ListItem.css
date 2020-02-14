@@ -1,3 +1,35 @@
 .ListItem {
   display: flex;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.ListItem.done {
+  opacity: .5;
+}
+
+.ListItem-done {
+  width: 24px;
+  height: 24px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  transition-duration: 0.3s;
+  background-color: #fff;
+}
+
+.ListItem-done:hover {
+  background-color: #efefef;
+}
+
+.ListItem-done:checked {
+  background-color: #bdbdbd;
+}
+
+.ListItem-body {
+  margin-left: 8px;
+  font-size: 16px;
+  flex: 1 1 auto;
 }
