@@ -3,3 +3,12 @@ input {
   border: 0;
   outline: none;
 }
+
+input[type='checkbox'] {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+}

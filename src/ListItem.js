@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
 import './ListItem.css'
 
-export default ({ listItem }) => {
-  const [done, setDone] = useState(listItem.done)
+export default ({ listItem, handleDone, handleRemove }) => {
   const [body, setBody] = useState(listItem.body)
-
-  const updateDone = () => {
-    console.log('updating done')
-    setDone(!done)
-    // updateDatabase
-  }
 
   const updateBody = () => {
     console.log('updating body')
@@ -18,13 +11,13 @@ export default ({ listItem }) => {
   }
 
   return (
-    <div className={`ListItem ${done && 'done'}`}>
+    <div className={`ListItem${listItem.done ? ' done' : ''}`}>
       <input
         className='ListItem-done'
         type='checkbox'
         name='done'
-        checked={done}
-        onChange={updateDone}
+        checked={listItem.done}
+        onChange={() => handleDone(listItem)}
       />
       <input
         className='ListItem-body'
@@ -35,6 +28,13 @@ export default ({ listItem }) => {
         onChange={(e) => setBody(e.target.value)}
         onBlur={updateBody}
       />
+      <button
+        className='ListItem-remove'
+        type='button'
+        name='remove'
+        onClick={() => handleRemove(listItem)}
+      >-
+      </button>
     </div>
   )
 }
