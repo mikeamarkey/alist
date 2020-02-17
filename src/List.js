@@ -1,17 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ListItem from './ListItem'
 import './List.css'
+import db from './db'
 
 export default () => {
-  const list = {
-    title: 'スーパー',
-    items: [
-      { id: 1, done: false, body: 'アップル' },
-      { id: 2, done: true, body: 'バナナ' },
-      { id: 3, done: false, body: '納豆' }
-    ]
-  }
-
   const sortListItems = (items) => {
     return items.sort((a, b) => {
       if (a.done && !b.done) {
@@ -23,23 +15,33 @@ export default () => {
       }
     })
   }
-  const [listItems, setListItems] = useState(sortListItems(list.items))
-  const [title, setTitle] = useState(list.title)
+
+  const [title, setTitle] = useState('')
+  const [listItems, setListItems] = useState([])
+
+  // set initial
+  useEffect(() => {
+    const getList = async () => {
+      const list = await db.list.get()
+      setTitle(list.title)
+      setListItems(sortListItems(list.items))
+    }
+    getList()
+  }, [])
 
   const updateTitle = () => {
-    console.log('updating title')
-    // TODO: debounce updating instead of blur?
-    // updateDatabase
+    db.list.edit({ title })
   }
 
   const handleAdd = () => {
     const newItem = {
-      id: Math.floor(Math.random() * 10000),
       done: false,
       body: ''
     }
-    const items = [...listItems, newItem]
-    setListItems(sortListItems(items))
+    db.item.add(newItem).then((createdItem) => {
+      const items = [...listItems, createdItem]
+      setListItems(sortListItems(items))
+    })
   }
 
   const events = {
@@ -49,11 +51,13 @@ export default () => {
           return item
         }
         item.done = !listItem.done
+        db.item.edit(item)
         return item
       })
       setListItems(sortListItems(items))
     },
     handleRemove: (listItem) => {
+      db.item.remove(listItem)
       const items = listItems.filter((item) => {
         return listItem.id !== item.id
       })

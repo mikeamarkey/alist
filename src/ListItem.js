@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
+import db from './db'
 import './ListItem.css'
 
 export default ({ listItem, handleDone, handleRemove }) => {
   const [body, setBody] = useState(listItem.body)
 
   const updateBody = () => {
-    console.log('updating body')
-    // TODO: debounce updating instead of blur?
-    // updateDatabase
+    db.item.edit({
+      id: listItem.id,
+      body
+    })
   }
 
   return (
