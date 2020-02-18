@@ -10,6 +10,8 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
 }
 
+const DEV_LIST_NAME = 'test2'
+
 if (firebase.apps.length <= 0) {
   firebase.initializeApp(firebaseConfig)
 }
@@ -18,7 +20,9 @@ const db = firebase.firestore()
 
 const list = {
   get: async () => {
-    const itemSS = await db.collection('items').where('listId', '==', 'test').get()
+    const itemSS = await db.collection('items')
+      .where('listId', '==', DEV_LIST_NAME)
+      .get()
     const items = itemSS.docs.map((item) => {
       return {
         id: item.id,
@@ -26,24 +30,22 @@ const list = {
       }
     })
 
-    const listSS = await db.collection('lists').doc('test').get()
+    const listSS = await db.collection('lists').doc(DEV_LIST_NAME).get()
     const id = listSS.id
     const data = listSS.data()
     return { id, ...data, items }
   },
-  edit: (data) => {
-    db.collection('lists').doc('test').set(data, { merge: true })
+  update: (data) => {
+    db.collection('lists').doc(DEV_LIST_NAME).set(data, { merge: true })
   }
 }
 
 const item = {
-  add: async (data) => {
-    data.listId = 'test'
-    const newItem = await db.collection('items').add(data)
-    data.id = newItem.id
-    return data
+  initNew: () => {
+    return db.collection('items').doc()
   },
-  edit: (data) => {
+  update: (data) => {
+    data.listId = DEV_LIST_NAME
     db.collection('items').doc(data.id).set(data, { merge: true })
   },
   remove: (data) => {

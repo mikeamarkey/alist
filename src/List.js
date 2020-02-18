@@ -5,7 +5,17 @@ import db from './db'
 
 export default () => {
   const sortListItems = (items) => {
-    return items.sort((a, b) => {
+    const rankSorted = items.sort((a, b) => {
+      if (a.rank > b.rank) {
+        return 1
+      } else if (b.rank > a.rank) {
+        return -1
+      } else {
+        return 0
+      }
+    })
+
+    const doneSorted = rankSorted.sort((a, b) => {
       if (a.done && !b.done) {
         return 1
       } else if (!a.done && b.done) {
@@ -14,6 +24,8 @@ export default () => {
         return 0
       }
     })
+
+    return doneSorted
   }
 
   const [title, setTitle] = useState('')
@@ -23,25 +35,31 @@ export default () => {
   useEffect(() => {
     const getList = async () => {
       const list = await db.list.get()
-      setTitle(list.title)
-      setListItems(sortListItems(list.items))
+      setTitle(list.title ? list.title : '')
+      setListItems(sortListItems(list.items ? list.items : []))
     }
     getList()
   }, [])
 
   const updateTitle = () => {
-    db.list.edit({ title })
+    db.list.update({ title })
   }
 
   const handleAdd = () => {
     const newItem = {
+      id: db.item.initNew().id,
       done: false,
-      body: ''
+      body: '',
+      rank: listItems.reduce((ret, item) => {
+        if (item.rank >= ret) {
+          ret = item.rank + 1
+        }
+        return ret
+      }, 1)
     }
-    db.item.add(newItem).then((createdItem) => {
-      const items = [...listItems, createdItem]
-      setListItems(sortListItems(items))
-    })
+    const items = [...listItems, newItem]
+    setListItems(sortListItems(items))
+    db.item.update(newItem)
   }
 
   const events = {
@@ -51,7 +69,7 @@ export default () => {
           return item
         }
         item.done = !listItem.done
-        db.item.edit(item)
+        db.item.update(item)
         return item
       })
       setListItems(sortListItems(items))

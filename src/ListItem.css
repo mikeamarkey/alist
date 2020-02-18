@@ -20,10 +20,6 @@
   background-color: #fff;
 }
 
-.ListItem-done:hover {
-  background-color: #efefef;
-}
-
 .ListItem-done:checked {
   background-color: #bdbdbd;
 }

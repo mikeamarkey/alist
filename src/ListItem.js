@@ -6,7 +6,7 @@ export default ({ listItem, handleDone, handleRemove }) => {
   const [body, setBody] = useState(listItem.body)
 
   const updateBody = () => {
-    db.item.edit({
+    db.item.update({
       id: listItem.id,
       body
     })
