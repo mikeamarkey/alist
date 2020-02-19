@@ -19,7 +19,7 @@ export default ({ listItem, handleDone, handleRemove }) => {
         type='checkbox'
         name='done'
         checked={listItem.done}
-        onChange={() => handleDone(listItem)}
+        onChange={() => handleDone({ ...listItem, body })}
       />
       <input
         className='ListItem-body'
@@ -30,13 +30,15 @@ export default ({ listItem, handleDone, handleRemove }) => {
         onChange={(e) => setBody(e.target.value)}
         onBlur={updateBody}
       />
-      <button
-        className='ListItem-remove'
-        type='button'
-        name='remove'
-        onClick={() => handleRemove(listItem)}
-      >-
-      </button>
+      {listItem.done && (
+        <button
+          className='ListItem-remove'
+          type='button'
+          name='remove'
+          onClick={() => handleRemove(listItem)}
+        >-
+        </button>
+      )}
     </div>
   )
 }

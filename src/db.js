@@ -10,7 +10,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
 }
 
-const DEV_LIST_NAME = 'test2'
+const DEV_LIST_NAME = 'test'
 
 if (firebase.apps.length <= 0) {
   firebase.initializeApp(firebaseConfig)
