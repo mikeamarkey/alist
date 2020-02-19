@@ -99,7 +99,6 @@ export default () => {
         placeholder='Title'
         onChange={(e) => setTitle(e.target.value)}
         onBlur={updateTitle}
-        onMouseLeave={updateTitle}
       />
 
       <div className='List-wrapper'>
