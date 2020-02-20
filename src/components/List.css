@@ -1,0 +1,66 @@
+.List {
+  margin: 0 16px;
+}
+
+.mylists {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.mylists::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.mylist {
+  display: inline-block;
+  width: 80px;
+  overflow: hidden;
+  padding: 16px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  color: inherit;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mylist.active {
+  font-weight: bold;
+}
+
+.ListTitle {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 11px 0;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.ListAdd {
+  display: block;
+  width: 100%;
+  margin: 32px 0;
+  height: 48px;
+  border: 1px solid gray;
+  background: #fff;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.ListAdd-icon {
+  font-size: 24px;
+  color: gray;
+}
+
+.separator {
+  margin: 16px 0;
+}
+
+.subhead {
+  font-size: 14px;
+  color: darkgray;
+}

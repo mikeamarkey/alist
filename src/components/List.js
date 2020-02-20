@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import ListItem from './ListItem'
 import './List.css'
-import db from './db'
+import db from '../libs/db'
 
 export default ({ listId }) => {
+  const lists = [
+    { name: 'スーパー', listId: 'test' },
+    { name: 'やること', listId: 'todo' },
+    { name: '利音グッズ', listId: 'leo' }
+  ]
+
+  const initialList = lists.find((item) => {
+    return item.listId === listId
+  })
+
   const sortListItems = (items) => {
     const rankSorted = items.sort((a, b) => {
       if (a.rank > b.rank) {
@@ -27,7 +37,7 @@ export default ({ listId }) => {
     return doneDivided
   }
 
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState(initialList ? initialList.name : '')
   const [listItems, setListItems] = useState({ active: [], done: [] })
 
   // set initial
@@ -92,6 +102,19 @@ export default ({ listId }) => {
 
   return (
     <div className='List'>
+      <div className='mylists'>
+        {lists.map((item) => {
+          return (
+            <a
+              className={`mylist ${listId === item.listId ? 'active' : ''}`}
+              key={item.listId}
+              href={`/${item.listId}`}
+            >{item.name}
+            </a>
+          )
+        })}
+      </div>
+
       <input
         className='ListTitle'
         type='text'

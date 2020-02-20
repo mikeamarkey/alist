@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import db from './db'
+import db from '../libs/db'
 import './ListItem.css'
 
 export default ({ listItem, handleDone, handleRemove }) => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import App from './App'
+import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 
 const rootEl = document.getElementById('root')
@@ -9,8 +9,8 @@ ReactDOM.render(<App />, rootEl)
 
 // simple hot reloading
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default
+  module.hot.accept('./components/App', () => {
+    const NextApp = require('./components/App').default
     ReactDOM.render(<NextApp />, rootEl)
   })
 }
