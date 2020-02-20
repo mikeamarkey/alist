@@ -12,3 +12,8 @@ button {
   cursor: pointer;
   outline: none;
 }
+
+.App {
+  max-width: 640px;
+  margin: auto;
+}

@@ -3,7 +3,7 @@ import ListItem from './ListItem'
 import './List.css'
 import db from './db'
 
-export default () => {
+export default ({ listId }) => {
   const sortListItems = (items) => {
     const rankSorted = items.sort((a, b) => {
       if (a.rank > b.rank) {
@@ -33,20 +33,21 @@ export default () => {
   // set initial
   useEffect(() => {
     const getList = async () => {
-      const list = await db.list.get()
+      const list = await db.list.get(listId)
       setTitle(list.title ? list.title : '')
       setListItems(sortListItems(list.items ? list.items : []))
     }
     getList()
-  }, [])
+  }, [listId])
 
   const updateTitle = (e) => {
-    db.list.update({ title })
+    db.list.update({ title, listId })
   }
 
   const handleAdd = () => {
     const items = [...listItems.active, ...listItems.done]
     const newItem = {
+      listId,
       id: db.item.initNew().id,
       done: false,
       body: '',
