@@ -11,6 +11,7 @@ input[type='checkbox'] {
 button {
   cursor: pointer;
   outline: none;
+  padding: 0;
 }
 
 .App {
