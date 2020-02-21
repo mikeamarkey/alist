@@ -14,16 +14,15 @@
 
 .mylist {
   display: inline-block;
-  width: 80px;
+  width: 120px;
   overflow: hidden;
   padding: 16px;
+  border: none;
   text-align: center;
-  text-decoration: none;
   font-size: 14px;
-  color: inherit;
-  word-break: keep-all;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  color: inherit;
+  background: none;
 }
 
 .mylist.active {

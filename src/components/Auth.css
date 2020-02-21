@@ -1,0 +1,24 @@
+.Auth {
+  margin: 24px auto;
+  max-width: 480px;
+}
+
+.Auth input,
+.Auth button {
+  display: block;
+  width: 100%;
+  margin: 24px 8px;
+  height: 48px;
+  padding: 8px;
+  max-width: 480px;
+  border-bottom: 1px solid gray;
+  font-size: 16px;
+}
+
+.Auth button {
+  border: 1px solid gray;
+}
+
+.Auth .errorMessage {
+  color: red;
+}

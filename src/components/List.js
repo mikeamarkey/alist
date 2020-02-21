@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react'
 import ListItem from './ListItem'
 import './List.css'
 import db from '../libs/db'
+import utils from '../libs/utils'
 
-export default ({ listId }) => {
+export default () => {
   const lists = [
     { name: 'スーパー', listId: 'test' },
     { name: 'やること', listId: 'todo' },
     { name: '利音グッズ', listId: 'leo' }
   ]
+  const initialListId = utils.getInitialId()
 
   const initialList = lists.find((item) => {
-    return item.listId === listId
+    return item.listId === initialListId
   })
 
   const sortListItems = (items) => {
@@ -37,6 +39,7 @@ export default ({ listId }) => {
     return doneDivided
   }
 
+  const [listId, setListId] = useState(initialListId)
   const [title, setTitle] = useState(initialList ? initialList.name : '')
   const [listItems, setListItems] = useState({ active: [], done: [] })
 
@@ -52,6 +55,11 @@ export default ({ listId }) => {
 
   const updateTitle = (e) => {
     db.list.update({ title, listId })
+  }
+
+  const changeListId = (listId) => {
+    window.history.pushState(null, null, listId)
+    setListId(listId)
   }
 
   const handleAdd = () => {
@@ -105,12 +113,12 @@ export default ({ listId }) => {
       <div className='mylists'>
         {lists.map((item) => {
           return (
-            <a
+            <button
               className={`mylist ${listId === item.listId ? 'active' : ''}`}
               key={item.listId}
-              href={`/${item.listId}`}
+              onClick={() => changeListId(item.listId)}
             >{item.name}
-            </a>
+            </button>
           )
         })}
       </div>

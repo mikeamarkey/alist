@@ -14,7 +14,11 @@ button {
   padding: 0;
 }
 
-.App {
-  max-width: 640px;
-  margin: auto;
+.logout {
+  margin: 2px 16px;
+  text-align: right;
+}
+
+.logout button {
+  border: none;
 }
