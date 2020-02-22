@@ -1,5 +1,5 @@
 .List {
-  margin: 0 16px;
+  margin: 0 16px 32px;
 }
 
 .mylists {
@@ -14,7 +14,6 @@
 
 .mylist {
   display: inline-block;
-  width: 120px;
   overflow: hidden;
   padding: 16px;
   border: none;
@@ -27,6 +26,10 @@
 
 .mylist.active {
   font-weight: bold;
+}
+
+.mylist.addList {
+  width: 60px;
 }
 
 .ListTitle {
